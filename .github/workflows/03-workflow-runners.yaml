@@ -8,3 +8,18 @@ jobs:
         run: |
           echo "This job is running on a Ubuntu runner."
           echo "Runner OS: $RUNNER_OS"
+  windows-echo:
+    runs-on: windows-latest
+    steps:
+      - name: Show OS
+        shell: bash
+        run: |
+          echo "This job is running on a windows runner."
+          echo "Runner OS: $RUNNER_OS"
+          
+
+# Why we had to declare shell: bash in the windows runner?
+# On Ubuntu, jobs use bash, so $RUNNER_OS works naturally.
+# On windows, the default is powershell, which expects environments variables
+# like $env:RUNNER_OS instead, so we had to override the default shell, forcing
+# the step to run in bash, which understands the $RUNNER_OS syntax - just like on ubuntu
